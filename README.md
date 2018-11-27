@@ -30,7 +30,7 @@ For Linux,add this:
 ```
 $ sudo apt-get install python-tk
 ```
-  
+After That:
 ```
 $ python GUI.py
 ```
