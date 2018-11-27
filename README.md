@@ -2,32 +2,47 @@
 Author: BG6WRI  
 Email: <bg6wri@gmail.com>  
 
+
+Whatever version you need,you should run this at first:
+```
+$ pip install sgp4 jdcal pyserial requests
+(use “sudo pip” on Linux)
+
+```
+
+
 ## wri_sattrack
 Run successfully on both Linux & Windows.  
 Just python it!  
 
+
 ```
-$ sudo pip install sgp4 jdcal pyserial requests  
-$ python wri_sattrack.py  
+$ python wri_sattrack.py
+
 ```
 Follow the guide to enter the name of the Sat you want to track and enter your Coordinates.  
 
-You can change the code to make the data output by `print()` or `ser.write()` .
 
 ## GUI Version
-In order to use this program in both Opration Systems  
-Some code shoule be changed by user.
+This program can be run in both Opration Systems.  
+But on Windows,Just ‘Python 2.7’ can run it well because of the ‘Tkinter’ package.  
+
 ```
-$ sudo pip install sgp4 jdcal pyserial requests 
-$ sudo apt-get install python-tk  
-$ python GUI.py  
+For Linux,add this:
+$ sudo apt-get install python-tk
+
+
+
+$ python GUI.py
+
 ```
 Output Mode include Screen,Serial,or both of them.  
 You can choose it freely. 
 
 ## sat_tracker
 Use SGP4 model,HMC5883L and MMA8452Q on Raspberry Pi  
+
 ```
-$ sudo pip install sgp4 jdcal python-pyserial requests  
 $ python track.py
+
 ```
