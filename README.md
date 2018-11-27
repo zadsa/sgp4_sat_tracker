@@ -6,8 +6,9 @@ Email: <bg6wri@gmail.com>
 Whatever version you need,you should run this at first:
 ```
 $ pip install sgp4 jdcal pyserial requests
-```
 (use “sudo pip” on Linux)
+```
+
 
 
 ## wri_sattrack
