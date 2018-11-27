@@ -7,7 +7,6 @@ Whatever version you need,you should run this at first:
 ```
 $ pip install sgp4 jdcal pyserial requests
 (use “sudo pip” on Linux)
-
 ```
 
 
@@ -18,7 +17,6 @@ Just python it!
 
 ```
 $ python wri_sattrack.py
-
 ```
 Follow the guide to enter the name of the Sat you want to track and enter your Coordinates.  
 
@@ -34,7 +32,6 @@ $ sudo apt-get install python-tk
 
 
 $ python GUI.py
-
 ```
 Output Mode include Screen,Serial,or both of them.  
 You can choose it freely. 
@@ -44,5 +41,4 @@ Use SGP4 model,HMC5883L and MMA8452Q on Raspberry Pi
 
 ```
 $ python track.py
-
 ```
