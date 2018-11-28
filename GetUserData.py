@@ -18,7 +18,8 @@ def update(mode):
   if update == 'Y' or update == 'y':
     for i in file_list:
       r=requests.get("http://www.celestrak.com/NORAD/elements/"+i)
-      with open(sys.path[0]+"/"+i, "wb") as code:
+      #with open(sys.path[0]+"/"+i, "wb") as code:
+      with open(i, "wb") as code:
        code.write(r.content)
 
 
