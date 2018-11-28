@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import requests
-import sys
+#import sys
 
 file_list = ('amateur.txt','noaa.txt','stations.txt')
 
@@ -36,7 +36,7 @@ def get_user_data(mode,Sat,Lat,Lon,kmAlt):
 
 
     for i in range(len(file_list)):
-      f = open(sys.path[0]+"/"+file_list[i],"r")
+      f = open(file_list[i],"r")
       while True:
         line=f.readline()
         if line.find(name) != -1:
@@ -67,7 +67,7 @@ def get_user_data(mode,Sat,Lat,Lon,kmAlt):
     name = str.upper(Sat)
 
     for i in range(len(file_list)):
-      f = open(sys.path[0]+"/"+file_list[i],"r")
+      f = open(file_list[i],"r")
       while True:
         line=f.readline()
         if line.find(name) != -1:
