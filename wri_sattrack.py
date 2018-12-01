@@ -39,6 +39,7 @@ while True:
 	AZ,EL = GetLook.GetLook(date_now_julian,eciSat)
 
 	print AZ,EL
+	
 '''	
 	#if you want to use serial
 	ser.write("Whatever you need")

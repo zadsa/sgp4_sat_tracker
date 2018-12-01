@@ -4,6 +4,8 @@
 import requests
 #import sys
 
+
+#Update Data
 file_list = ('amateur.txt','noaa.txt','stations.txt')
 
 def update(mode):
@@ -18,12 +20,14 @@ def update(mode):
   if update == 'Y' or update == 'y':
     for i in file_list:
       r=requests.get("http://www.celestrak.com/NORAD/elements/"+i)
+      print "Downloding "+i
       #with open(sys.path[0]+"/"+i, "wb") as code:
       with open(i, "wb") as code:
        code.write(r.content)
+    print "The Download is Complete."
 
 
-#Sat Data
+#Serach Sat Data
 def get_user_data(mode,Sat,Lat,Lon,kmAlt):
 
   file_list = ('amateur.txt','noaa.txt','stations.txt')
