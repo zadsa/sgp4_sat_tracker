@@ -24,7 +24,7 @@ Follow the guide to enter the name of the Sat you want to track and enter your C
 
 ## GUI Version
 This program can be run in both Opration Systems.  
-But on Windows,Just ‘Python 2.7’ can run it well because of the ‘Tkinter’ package.  
+But on Windows,Just ```Python 2.7``` can run it well because of the ‘Tkinter’ package.  
 
 ```
 $ sudo apt-get install python-tk
