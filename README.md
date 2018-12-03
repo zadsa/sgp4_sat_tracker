@@ -35,7 +35,7 @@ $ python GUI.py
 Output Mode include Screen,Serial,or both of them.  
 You can choose it freely. 
 
-## sat_tracker
+## sat_tracker(not complete)
 Use SGP4 model,HMC5883L and MMA8452Q on Raspberry Pi  
 
 ```
