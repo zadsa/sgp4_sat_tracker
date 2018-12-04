@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import time
-import sys
 
 from sgp4.earth_gravity import wgs72
 from sgp4.ext import invjday, newtonnu, rv2coe
