@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import math
-
+import time
+import jdcal
 
 F                        =        1.0 / 298.26
 XKMPER_WGS72             =        6378.135
@@ -36,8 +37,14 @@ kmAlt = 99.99         #Altitude
 '''
 
 
+def getJulian(tt):
+	tg = time.gmtime(tt)
+	date_now_julian = sum(jdcal.gcal2jd(tg.tm_year,tg.tm_mon,tg.tm_mday))+tg.tm_hour/24.0+tg.tm_min/24.0/60.0+tg.tm_sec/24.0/3600.0
+	return date_now_julian
 
-def GetLook(date_now,eciSat):
+def GetLook(tt,eciSat):
+
+	date_now = getJulian(tt)
 
 	eciSite = Eci()
 
