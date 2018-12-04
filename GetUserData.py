@@ -30,14 +30,12 @@ def update(mode):
 #Serach Sat Data
 def get_user_data(mode,Sat,Lat,Lon,kmAlt):
 
-  file_list = ('amateur.txt','noaa.txt','stations.txt')
-  
+  global file_list
 
   if mode == "shell":
 
     print "Please enter the name of the Satellite:"
     name = str.upper(raw_input())
-
 
     for i in range(len(file_list)):
       f = open(file_list[i],"r")
