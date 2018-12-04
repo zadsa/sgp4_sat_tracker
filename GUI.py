@@ -11,8 +11,6 @@ import GetSat
 import GetLook
 import threading
 
-global stop
-
 def start():
 	global stop
 	stop = 0
