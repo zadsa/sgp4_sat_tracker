@@ -47,6 +47,8 @@ def update():
 
 def fun_timer():
 
+	global ser
+
 	tt = time.time()
 	eciSat = GetSat.get_eciSat(tt)
 	AZ,EL = GetLook.GetLook(tt,eciSat)
@@ -55,8 +57,7 @@ def fun_timer():
 
 		AZ_flash.set(str(AZ))
 		EL_flash.set(str(EL))
-	global ser
-
+	
 	if mode.get() == 2 or mode.get() ==3 :
 		serial_str=str(AZ)+str(EL)
 		ser.write(serial_str)
