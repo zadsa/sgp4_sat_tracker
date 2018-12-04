@@ -5,10 +5,11 @@ from Tkinter import *
 import sys
 import time
 import serial
+import threading
 import GetUserData
 import GetSat
 import GetLook
-import threading
+
 
 def start():
 	global stop
