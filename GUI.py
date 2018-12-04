@@ -4,7 +4,6 @@
 from Tkinter import *
 import sys
 import time
-import jdcal
 import serial
 import GetUserData
 import GetSat
@@ -49,10 +48,8 @@ def update():
 def fun_timer():
 
 	tt = time.time()
-	tg = time.gmtime(tt)
 	eciSat = GetSat.get_eciSat(tt)
-	date_now_julian = sum(jdcal.gcal2jd(tg.tm_year,tg.tm_mon,tg.tm_mday))+tg.tm_hour/24.0+tg.tm_min/24.0/60.0+tg.tm_sec/24.0/3600.0
-	AZ,EL = GetLook.GetLook(date_now_julian,eciSat)
+	AZ,EL = GetLook.GetLook(tt,eciSat)
 
 	if mode.get() == 1 or mode.get()==3 :
 

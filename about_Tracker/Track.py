@@ -10,7 +10,6 @@ from MMA8452Q import MMA8452Q
 import GetSat
 import GetLook
 import time
-import jdcal
 import math
 import serial
 
@@ -22,7 +21,14 @@ import serial
 
 #---setup----
 
-#ser=serial.Serial("/dev/ttyUSB0",230400,timeout=0.5)
+'''
+#if you want to use serial.
+
+	#Linux
+ser=serial.Serial("COM1",9600,timeout=0.5)
+	#Windows
+ser=serial.Serial("/dev/ttyUSB0",9600,timeout=0.5)
+'''
 
 azimuth = HMC5883L()
 elevation 	= MMA8452Q()
@@ -49,14 +55,13 @@ EL_old = 0
 
 
 
+
 #----------------Big Loop----------------
 while True:
 
 	tt = time.time()
-	tg = time.gmtime(tt)
 	eciSat = GetSat.get_eciSat(tt)
-	date_now_julian = sum(jdcal.gcal2jd(tg.tm_year,tg.tm_mon,tg.tm_mday))+tg.tm_hour/24.0+tg.tm_min/24.0/60.0+tg.tm_sec/24.0/3600.0
-	AZ,EL = GetLook.GetLook(date_now_julian,eciSat)
+	AZ,EL = GetLook.GetLook(tt,eciSat)
 	#date_now为Julian形式
 
 	AZ_now = azimuth.read()     #azimuth
