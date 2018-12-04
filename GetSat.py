@@ -31,12 +31,11 @@ def generate(line1,line2):
     global satellite
     satellite = twoline2rv(line1, line2, wgs72)
 
-def get_eciSat():
+def get_eciSat(tt):
 
-  tt =time.time()
-  date_now_utc = time.gmtime(tt)
-  P,V = satellite.propagate(date_now_utc.tm_year, date_now_utc.tm_mon, date_now_utc.tm_mday,
-                               date_now_utc.tm_hour, date_now_utc.tm_min, date_now_utc.tm_sec + tt%1 )
+  tg = time.gmtime(tt)
+  P,V = satellite.propagate(tg.tm_year, tg.tm_mon, tg.tm_mday,
+                               tg.tm_hour, tg.tm_min, tg.tm_sec + tt%1 )
 
   #list & tuple
   eciSat.Position = list(P)
