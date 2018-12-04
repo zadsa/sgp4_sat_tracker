@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import time
-import sys
 import serial
 import GetUserData
 import GetSat
