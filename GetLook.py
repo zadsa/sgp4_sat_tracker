@@ -22,19 +22,15 @@ Site	=	Eci()
 
 
 
-def generate(Lat,Lon,kmAlt):
-	Site.Position =    [ Lat*math.pi/180 , Lon*math.pi/180 , kmAlt ]
+def generate(Lat,Lon,Alt):
+	Site.Position =    [ Lat*math.pi/180 , Lon*math.pi/180 , Alt/1000 ]
+
+#Old Version
+#def generate(Lat,Lon,kmAlt):
+#	Site.Position =    [ Lat*math.pi/180 , Lon*math.pi/180 , kmAlt ]
 
 
 
-'''
-
-#Site Data
-Lat = 33.33       	  #Latitude
-Lon = 66.66     	  #Longitude
-kmAlt = 99.99         #Altitude
-
-'''
 
 
 def getJulian(tt):
