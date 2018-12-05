@@ -18,7 +18,7 @@ def start():
 	Sat=e1.get()
 	Lat=float(e2.get())
 	Lon=float(e3.get())
-	kmAlt=float(e4.get())
+	Alt=float(e4.get())
 	global ser
 
 	if mode.get() == 2 or mode.get() == 3 :
@@ -28,11 +28,11 @@ def start():
 			ser=serial.Serial("/dev/ttyUSB"+e5.get(),9600,timeout=0.5)
 
 	print "You are tracking "+str.upper(Sat)+"."
-	print "You are at Lon: "+str(Lon)+" Lat: "+str(Lat)+" Altitude "+str(kmAlt)+"."
+	print "You are at Lon: "+str(Lon)+" Lat: "+str(Lat)+" Altitude "+str(Alt)+"m"
 
-	line1,line2,Lat,Lon,kmAlt = GetUserData.get_user_data("gui",Sat,Lat,Lon,kmAlt)
+	line1,line2,Lat,Lon,Alt = GetUserData.get_user_data("gui",Sat,Lat,Lon,Alt)
 	GetSat.generate(line1,line2)
-	GetLook.generate(Lat,Lon,kmAlt)
+	GetLook.generate(Lat,Lon,Alt)
 
 	#global timer
 	timer = threading.Timer(0.1, fun_timer)
@@ -95,7 +95,7 @@ def root_gui(i):
 	Label(root, text="Sat Name:"*i+u"目标卫星"*(not i)).grid(		row=1)
 	Label(root, text="Lat:"*i+u"纬度"*(not i)).grid(				row=2)
 	Label(root, text="Lon:"*i+u"经度"*(not i)).grid(				row=3)
-	Label(root, text="kmAlt:"*i+u"高度(km)"*(not i)).grid(		row=4)
+	Label(root, text="Alt:"*i+u"高度"*(not i)).grid(				row=4)
 	Label(root, text="Serial COM"*i+u"串口号"*(not i)).grid(		row=4, column=2)
 
 	global e1,e2,e3,e4,e5
