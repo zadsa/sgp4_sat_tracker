@@ -28,7 +28,7 @@ def update(mode):
 
 
 #Serach Sat Data
-def get_user_data(mode,Sat,Lat,Lon,kmAlt):
+def get_user_data(mode,Sat,Lat,Lon,Alt):
 
   global file_list
 
@@ -59,10 +59,10 @@ def get_user_data(mode,Sat,Lat,Lon,kmAlt):
     Lat = float(raw_input())
     print "Please enter your Longitude(deg):"
     Lon = float(raw_input())
-    print "Please enter your Altitude(km):"
-    kmAlt = float(raw_input())
+    print "Please enter your Altitude:"
+    Alt = float(raw_input())
 
-    return line1,line2,Lat,Lon,kmAlt
+    return line1,line2,Lat,Lon,Alt
 
   if mode == "gui":
 
@@ -83,4 +83,4 @@ def get_user_data(mode,Sat,Lat,Lon,kmAlt):
         print "No date about this Sat.Please Enter The Correct Sat Name."
         name = str.upper(raw_input())
         
-  return line1,line2,Lat,Lon,kmAlt
+  return line1,line2,Lat,Lon,Alt
