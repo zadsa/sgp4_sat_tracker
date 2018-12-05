@@ -31,13 +31,16 @@ while True:
 	eciSat = GetSat.get_eciSat(tt)
 	AZ,EL = GetLook.GetLook(tt,eciSat)
 
-	print AZ,EL
+	serial_str="AZ"+str(AZ)+" EL"+str(EL)+" Easycomm Mode"
+	print serial_str
 	
 '''	
 	#if you want to use serial
 	ser.write("Whatever you need")
-	#For example:   ser.write(AZ,EL)
+	#For example:   ser.write(serial_str)
+'''
 
+'''
 	#If you need to control the frequency of date out:
 	time.sleep()                 #Second
 '''

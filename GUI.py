@@ -54,13 +54,15 @@ def fun_timer():
 	eciSat = GetSat.get_eciSat(tt)
 	AZ,EL = GetLook.GetLook(tt,eciSat)
 
+	#Screen Output
 	if mode.get() == 1 or mode.get()==3 :
 
 		AZ_flash.set(str(AZ))
 		EL_flash.set(str(EL))
 	
+	#Serial Output
 	if mode.get() == 2 or mode.get() ==3 :
-		serial_str=str(AZ)+str(EL)
+		serial_str="AZ"+str(AZ)+" EL"+str(EL)+"Easycomm Mode"
 		ser.write(serial_str)
 
 	if stop == 0:
