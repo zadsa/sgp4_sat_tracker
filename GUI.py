@@ -12,6 +12,7 @@ import GetLook
 
 
 def start():
+
 	global stop
 	stop = 0
 
@@ -33,6 +34,21 @@ def start():
 	line1,line2,Lat,Lon,Alt = GetUserData.get_user_data("gui",Sat,Lat,Lon,Alt)
 	GetSat.generate(line1,line2)
 	GetLook.generate(Lat,Lon,Alt)
+
+	tt = time.time()
+	eciSat = GetSat.get_eciSat(tt)
+	AZ,EL = GetLook.GetLook(tt,eciSat)
+	
+	if EL>=5:
+		print "Passing Now ..."
+		var.set("Passing Now ...")
+
+	if EL<5:
+		pass_time = GetLook.GetPassTime(tt,eciSat)
+		local_time = time.localtime(pass_time)
+		print "Next Passing Time : "+time.asctime(local_time)
+		var.set(time.asctime(local_time))
+
 
 	#global timer
 	timer = threading.Timer(0.1, fun_timer)
@@ -112,14 +128,21 @@ def root_gui(i):
 #	e3.insert(0,"30")
 #	e4.insert(0,"0")
 
-
-
-
 	e1.grid(row=1, column=1, padx=20, pady=5)
 	e2.grid(row=2, column=1, padx=20, pady=5)
 	e3.grid(row=3, column=1, padx=20, pady=5)
 	e4.grid(row=4, column=1, padx=20, pady=5)
 	e5.grid(row=5, column=2, padx=20, pady=5)
+
+
+	#Passing Situation
+
+	Label(root, text="Passing Situation:").grid(row=8, column=0,columnspan=2)
+	global var
+	var = StringVar()
+	Label(root, textvariable=var).grid(row=9, column=0,columnspan=2)
+
+
 
 	#Joke
 	Label(root, text="Author:BG6WRI").grid(	row=7, column=2)

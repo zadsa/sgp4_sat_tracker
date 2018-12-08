@@ -72,9 +72,9 @@ def get_user_data(mode,Sat,Lat,Lon,Alt):
       f = open(file_list[i],"r")
       while True:
         line=f.readline()
-        if line.find(name) != -1:
-          line1 = f.readline()[0:68]
-          line2 = f.readline()[0:68]
+        if line.find(name) != -1:       #Search for the Name of the Sat
+          line1 = f.readline()[0:68]    #TLE Length
+          line2 = f.readline()[0:68]    #TLE Length
           f.close()
           break
         if line == "":

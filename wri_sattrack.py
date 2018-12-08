@@ -17,13 +17,37 @@ ser=serial.Serial("COM1",9600,timeout=0.5)
 ser=serial.Serial("/dev/ttyUSB0",9600,timeout=0.5)
 '''
 
+def _init_():
+#Normal Mode
+	GetUserData.update("shell")
+	line1,line2,Lat,Lon,Alt = GetUserData.get_user_data("shell",'','','','' )
+#Test Mode
+#	line1 = "1 27607U 02058C   18338.87750224 -.00000040  00000-0  15328-4 0  9993"
+#	line2 = "2 27607  64.5552 288.2486 0079235 293.7328  65.5477 14.75502172858143"
+#	Lat,Lon,Alt = 30,30,0
 
-GetUserData.update("shell")
 
-line1,line2,Lat,Lon,Alt = GetUserData.get_user_data("shell",'','','','' )
+	GetSat.generate(line1,line2)
+	GetLook.generate(Lat,Lon,Alt)
 
-GetSat.generate(line1,line2)
-GetLook.generate(Lat,Lon,Alt)
+	tt = time.time()
+	eciSat = GetSat.get_eciSat(tt)
+	AZ,EL = GetLook.GetLook(tt,eciSat)
+
+	if EL>=5:
+		raw_input("Passing Now,Press ENTER to continue tracking ...")
+
+	if EL<5 :
+		pass_time = GetLook.GetPassTime(tt,eciSat)
+		local_time = time.localtime(pass_time)
+		print "Next Pass Time:     " + time.asctime(local_time)
+		raw_input("Press ENTER to continue tracking ...")
+
+
+
+
+
+_init_()
 
 while True:
 
@@ -44,3 +68,8 @@ while True:
 	#If you need to control the frequency of date out:
 	time.sleep()                 #Second
 '''
+
+
+
+
+

@@ -5,6 +5,8 @@ import math
 import time
 import jdcal
 
+import GetSat
+
 F                        =        1.0 / 298.26
 XKMPER_WGS72             =        6378.135
 EPOCH_JAN1_12H_2000      =        2451545.0
@@ -30,13 +32,24 @@ def generate(Lat,Lon,Alt):
 #	Site.Position =    [ Lat*math.pi/180 , Lon*math.pi/180 , kmAlt ]
 
 
-
-
-
 def getJulian(tt):
 	tg = time.gmtime(tt)
 	date_now_julian = sum(jdcal.gcal2jd(tg.tm_year,tg.tm_mon,tg.tm_mday))+tg.tm_hour/24.0+tg.tm_min/24.0/60.0+tg.tm_sec/24.0/3600.0
 	return date_now_julian
+
+
+def GetPassTime(tt,eciSat):
+
+	while True:
+
+		eciSat = GetSat.get_eciSat(tt)
+		AZ,EL = GetLook(tt,eciSat)
+		if EL<5:
+			tt = tt+1
+		else:
+			return tt
+
+
 
 def GetLook(tt,eciSat):
 
