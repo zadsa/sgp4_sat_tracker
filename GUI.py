@@ -137,7 +137,7 @@ def root_gui(i):
 
 	#Passing Situation
 
-	Label(root, text="Passing Situation:").grid(row=8, column=0,columnspan=2)
+	Label(root, text="Passing Time:").grid(row=8, column=0,columnspan=2)
 	global var
 	var = StringVar()
 	Label(root, textvariable=var).grid(row=9, column=0,columnspan=2)
