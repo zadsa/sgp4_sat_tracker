@@ -97,6 +97,9 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+
+# .txt file
 amateur.txt
 station.txt
 noaa.txt
