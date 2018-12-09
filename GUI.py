@@ -13,6 +13,8 @@ import GetLook
 
 def start():
 
+	i=language.get()
+
 	global stop
 	stop = 0
 
@@ -20,6 +22,7 @@ def start():
 	Lat=float(e2.get())
 	Lon=float(e3.get())
 	Alt=float(e4.get())
+
 	global ser
 
 	if mode.get() == 2 or mode.get() == 3 :
@@ -28,8 +31,8 @@ def start():
 		if sys.platform == "linux2":
 			ser=serial.Serial("/dev/ttyUSB"+e5.get(),9600,timeout=0.5)
 
-	print "You are tracking "+str.upper(Sat)+"."
-	print "You are at Lon: "+str(Lon)+" Lat: "+str(Lat)+" Altitude "+str(Alt)+"m"
+	print "You are tracking : "*i+u"正在追踪: "*(not i)+str.upper(Sat)+"."
+	print "You are at Lat : "*i+u"旋转器纬度: "*(not i)+str(Lat)+" Lon : "*i+u" 经度: "*(not i)+str(Lon)+" Altitude :"*i+u" 高度: "*(not i)+str(Alt)+"m"
 
 	line1,line2,Lat,Lon,Alt = GetUserData.get_user_data("gui",Sat,Lat,Lon,Alt)
 	GetSat.generate(line1,line2)
@@ -40,13 +43,13 @@ def start():
 	AZ,EL = GetLook.GetLook(tt,eciSat)
 	
 	if EL>=5:
-		print "Passing Now ..."
-		var.set("Passing Now ...")
+		print "Passing Now ..."*i+u"正在过境 ..."*(not i)
+		var.set("Passing Now ..."*i+u"正在过境 ..."*(not i))
 
 	if EL<5:
 		pass_time = GetLook.GetPassTime(tt,eciSat)
 		local_time = time.localtime(pass_time)
-		print "Next Passing Time : "+time.asctime(local_time)
+		print "Next Passing Time:"*i+u"过境时间:"*(not i)+time.asctime(local_time)
 		var.set(time.asctime(local_time))
 
 
@@ -85,8 +88,9 @@ def fun_timer():
 		timer = threading.Timer(0.1, fun_timer)
 		timer.start()
 
-def root_gui(i):
+def root_gui():
 
+	i=language.get()
 	lang_choose.destroy()
 
 	root = Tk()
@@ -108,7 +112,7 @@ def root_gui(i):
 	ButtonUpdate.grid(  row=0, column=2, padx=20, pady=5)
 
 	#UserData
-	Label(root, text="Sat Name:"*i+u"目标卫星"*(not i)).grid(		row=1)
+	Label(root, text="Sat Name:"*i+u"目标卫星"*(not i)).grid(	row=1)
 	Label(root, text="Lat:"*i+u"纬度"*(not i)).grid(				row=2)
 	Label(root, text="Lon:"*i+u"经度"*(not i)).grid(				row=3)
 	Label(root, text="Alt:"*i+u"高度"*(not i)).grid(				row=4)
@@ -137,7 +141,7 @@ def root_gui(i):
 
 	#Passing Situation
 
-	Label(root, text="Passing Time:").grid(row=8, column=0,columnspan=2)
+	Label(root, text="Passing Time :"*i+"过境时间 :"*(not i)).grid(row=8, column=0,columnspan=2)
 	global var
 	var = StringVar()
 	Label(root, textvariable=var).grid(row=9, column=0,columnspan=2)
@@ -145,12 +149,13 @@ def root_gui(i):
 
 
 	#Joke
-	Label(root, text="Author:BG6WRI").grid(	row=7, column=2)
+	Label(root, text="Design by BG6WRI").grid(		row=7, column=2)
+	Label(root, text="From WITARC").grid(	row=8, column=2)
 	#ButtonJoke = Button(root, text="一键日卫星", command=lambda:var.set("和我没关系啊，你找OpenATS去"))
 	#ButtonJoke.grid(row=8, column=2)
 	#var = StringVar()
 	#Label(root, textvariable=var).grid(	row=9, column=2)
-	Label(root, text="Organization:WITARC").grid(	row=8, column=2)
+	
 
 	#Output
 
@@ -183,7 +188,13 @@ def root_gui(i):
 
 #----lang_choose_gui----
 lang_choose = Tk()
-lang_choose.title("lang_choose")
+lang_choose.title("language_choose")
+#lang_choose.wm_minsize(400, 360)
+
+#Readme
+readme="Thanks to : \n\nOpenATS\nTurbo\nBG0AUB"
+Label(lang_choose, text=readme).grid(row=2, column=1)
+
 
 #Language Choose
 
@@ -198,11 +209,10 @@ for lang, lang_num in LANGUAGES:
 	c = Radiobutton(lang_group, text=lang, variable=language, value=lang_num)
 	c.pack(anchor=W)
 
-global i
-i=language.get()
+#global i
+#i=language.get()
 
-
-ButtonLangChoose = Button(lang_choose, text="Start/启动",command=lambda:root_gui(language.get()))
-ButtonLangChoose.grid(row=4, column=0, padx=30, pady=5)
+ButtonLangChoose = Button(lang_choose, text="Start/启动",command=lambda:root_gui())
+ButtonLangChoose.grid(row=3, column=0, padx=30, pady=5)
 
 lang_choose.mainloop()
