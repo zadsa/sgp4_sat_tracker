@@ -192,8 +192,8 @@ lang_choose.title("language_choose")
 #lang_choose.wm_minsize(400, 360)
 
 #Readme
-readme="Thanks to : \n\nOpenATS\nTurbo\nBG0AUB"
-Label(lang_choose, text=readme).grid(row=2, column=1)
+#readme="Thanks to : \n\nOpenATS\nTurbo\nBG0AUB"
+#Label(lang_choose, text=readme).grid(row=2, column=1)
 
 
 #Language Choose
