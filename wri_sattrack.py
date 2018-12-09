@@ -55,7 +55,7 @@ while True:
 	eciSat = GetSat.get_eciSat(tt)
 	AZ,EL = GetLook.GetLook(tt,eciSat)
 
-	serial_str="AZ"+str(AZ)+" EL"+str(EL)+" Easycomm Mode"
+	serial_str="AZ"+str(AZ)+" EL"+str(EL)+" Easycomm"
 	print serial_str
 	
 '''	
