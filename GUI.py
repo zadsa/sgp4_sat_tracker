@@ -10,7 +10,16 @@ import GetUserData
 import GetSat
 import GetLook
 
+#Stop Tracking
+def stop():
+	global stop
+	stop = 1
 
+#Update Data
+def update():
+	GetUserData.update("gui")
+
+#Start Tracking
 def start():
 
 	i=language.get()
@@ -31,10 +40,10 @@ def start():
 		if sys.platform == "linux2":
 			ser=serial.Serial("/dev/ttyUSB"+e5.get(),9600,timeout=0.5)
 
-	print "You are tracking : "*i	+u"正在追踪: "*(not i)+str.upper(Sat)+"."
-	print "You are at Lat : "*i		+u"旋转器纬度: "*(not i)+str(Lat)
-				+" Lon : "*i		+u" 经度: "*(not i)+str(Lon)
-				+" Altitude :"*i	+u" 高度: "*(not i)+str(Alt)+"m"
+	print "You are tracking : "*i		+u"正在追踪: "*(not i)+str.upper(Sat)+"."
+	print "You are at Lat : "*i			+u"旋转器纬度: "*(not i)+str(Lat) +\
+					" Lon : "*i			+u" 经度: "*(not i)+str(Lon)+\
+					" Altitude :"*i		+u" 高度: "*(not i)+str(Alt)+"m"
 
 	line1,line2,Lat,Lon,Alt = GetUserData.get_user_data("gui",Sat,Lat,Lon,Alt)
 	GetSat.generate(line1,line2)
@@ -59,14 +68,7 @@ def start():
 	timer = threading.Timer(0.1, fun_timer)
 	timer.start()
 
-
-def stop():
-	global stop
-	stop = 1
-
-def update():
-	GetUserData.update("gui")
-
+#Language Choosen GUI
 def fun_timer():
 
 	global ser
@@ -86,10 +88,14 @@ def fun_timer():
 		serial_str="AZ"+str(AZ)+" EL"+str(EL)+" Easycomm"
 		ser.write(serial_str)
 
-	if stop == 0:
-		timer = threading.Timer(0.1, fun_timer)
-		timer.start()
+	if stop == 1:
+		ser.close()
 
+
+	timer = threading.Timer(0.1, fun_timer)
+	timer.start()
+
+#Main GUI
 def root_gui():
 
 	i=language.get()
