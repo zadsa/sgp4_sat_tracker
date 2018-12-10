@@ -91,9 +91,9 @@ def fun_timer():
 	if stop == 1:
 		ser.close()
 
-
-	timer = threading.Timer(0.1, fun_timer)
-	timer.start()
+	if stop == 0:
+		timer = threading.Timer(0.1, fun_timer)
+		timer.start()
 
 #Main GUI
 def root_gui():
