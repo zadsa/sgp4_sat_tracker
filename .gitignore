@@ -101,5 +101,5 @@ ENV/
 
 # .txt file
 amateur.txt
-station.txt
+stations.txt
 noaa.txt
