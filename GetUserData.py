@@ -69,6 +69,7 @@ def get_user_data(mode,Sat,Lat,Lon,Alt):
     print "Please enter your Altitude:"
     Alt = float(raw_input())
 
+    print "\nYou are tracking : "+name+".\n"
     return line1,line2,Lat,Lon,Alt
 
   if mode == "gui":
