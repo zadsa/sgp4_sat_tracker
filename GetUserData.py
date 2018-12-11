@@ -32,6 +32,13 @@ def get_user_data(mode,Sat,Lat,Lon,Alt):
 
   global file_list
 
+  try:
+      f =open(file_list[0])
+      f.close()
+  except IOError:
+    print "You have no TLE file.Start downloading ..."
+    update("gui")
+
   if mode == "shell":
 
     print "Please enter the name of the Satellite:"
