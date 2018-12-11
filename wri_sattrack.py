@@ -30,6 +30,13 @@ def _init_():
 	GetSat.generate(line1,line2)
 	GetLook.generate(Lat,Lon,Alt)
 
+
+#	print "You are tracking : "+str.upper(Sat)+"."
+	print "You are at Lat : "+str(Lat) +\
+					" Lon : "+str(Lon)+\
+					" Altitude :"+str(Alt)+"m\n"
+
+
 	tt = time.time()
 	eciSat = GetSat.get_eciSat(tt)
 	AZ,EL = GetLook.GetLook(tt,eciSat)
@@ -40,8 +47,8 @@ def _init_():
 	if EL<5 :
 		pass_time = GetLook.GetPassTime(tt,eciSat)
 		local_time = time.localtime(pass_time)
-		print "Next Pass Time:     " + time.asctime(local_time)
-		raw_input("Press ENTER to continue tracking ...")
+		print "Next Pass Time:     " + time.asctime(local_time)+"\n"
+		raw_input("Press ENTER to continue tracking ...\n\n")
 
 
 
