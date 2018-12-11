@@ -89,7 +89,8 @@ def fun_timer():
 		ser.write(serial_str)
 
 	if stop == 1:
-		ser.close()
+		if mode.get() == 2 or mode.get() == 3 :
+			ser.close()
 
 	if stop == 0:
 		timer = threading.Timer(0.1, fun_timer)
