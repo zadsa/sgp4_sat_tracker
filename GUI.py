@@ -19,6 +19,13 @@ def stop():
 def update():
 	GetUserData.update("gui")
 
+#Quit GUI & Shell
+def quit():
+	global root
+	global timer
+	timer.cancel()
+	root.destroy()
+
 #Start Tracking
 def start():
 
@@ -61,7 +68,7 @@ def start():
 		pass_time = GetLook.GetPassTime(tt,eciSat)
 		local_time = time.localtime(pass_time)
 		print "Next Passing Time:"*i	+u"过境时间:"*(not i) + time.asctime(local_time)
-		var.set(time.asctime(local_time))
+		var.set(str(local_time.tm_year)+"/"+str(local_time.tm_mon)+"/"+str(local_time.tm_mday)+" "+str(local_time.tm_hour)+":"+str(local_time.tm_min)+":"+str(local_time.tm_sec))
 
 
 	#global timer
@@ -71,6 +78,7 @@ def start():
 #Language Choosen GUI
 def fun_timer():
 
+	global timer
 	global ser
 
 	tt = time.time()
@@ -89,6 +97,7 @@ def fun_timer():
 		ser.write(serial_str)
 
 	if stop == 1:
+		t
 		if mode.get() == 2 or mode.get() == 3 :
 			ser.close()
 
@@ -101,6 +110,8 @@ def root_gui():
 
 	i=language.get()
 	lang_choose.destroy()
+
+	global root
 
 	root = Tk()
 	root.title("WRI_Sat_Tracker")
@@ -141,10 +152,10 @@ def root_gui():
 	e4.grid(row=4, column=1, padx=20, pady=5)
 	e5.grid(row=5, column=2, padx=20, pady=5)
 
-#	e1.insert(0,"SO-50")
-#	e2.insert(0,"30")
-#	e3.insert(0,"30")
-#	e4.insert(0,"0")
+	e1.insert(0,"SO-50")
+	e2.insert(0,"30")
+	e3.insert(0,"30")
+	e4.insert(0,"0")
 
 	#Passing Situation
 
@@ -181,7 +192,7 @@ def root_gui():
 	Entry(root, textvariable=EL_flash, width=10).grid(row=6, column=1)
 
 	#Mode Choose
-	group = LabelFrame(root, text="output Mode"*i +u"输出模式"*(not i), padx=5, pady=5)
+	group = LabelFrame(root, text="Output Mode"*i +u"输出模式"*(not i), padx=5, pady=5)
 	group.grid(row=1, column=2, padx=10, pady=10, rowspan=3)
 	LANGS = [("Screen"*i+u"屏幕"*(not i), 1), ("Serial"*i+u"串口"*(not i), 2),("Both"*i+u"俩都"*(not i), 3)]
 	global mode
@@ -192,7 +203,11 @@ def root_gui():
 		b = Radiobutton(group, text=lang, variable=mode, value=num)
 		b.pack(anchor=W)
 
+
+	root.bind('<Escape>', lambda e: root.destroy())
+	root.protocol("WM_DELETE_WINDOW", quit)
 	root.mainloop()
+
 
 
 #----lang_choose_gui----
