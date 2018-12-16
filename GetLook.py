@@ -37,18 +37,28 @@ def getJulian(tt):
 	date_now_julian = sum(jdcal.gcal2jd(tg.tm_year,tg.tm_mon,tg.tm_mday))+tg.tm_hour/24.0+tg.tm_min/24.0/60.0+tg.tm_sec/24.0/3600.0
 	return date_now_julian
 
+#get pass time & max EL
+def GetPassData(tt,eciSat):
+#bug : GetPassData() when passing,the maxEL is wrong.
 
-def GetPassTime(tt,eciSat):
+	i=0
+	ELmax = 5
 
 	while True:
 
 		eciSat = GetSat.get_eciSat(tt)
 		AZ,EL = GetLook(tt,eciSat)
-		if EL<5:
-			tt = tt+1
-		else:
-			return tt
 
+		if EL>5 and i==0:
+			ttpass = tt
+			i=1
+
+		if EL>ELmax :
+			ELmax = EL
+		elif EL>5 and EL<ELmax:
+			return ttpass,ELmax
+
+		tt = tt + 1
 
 
 def GetLook(tt,eciSat):

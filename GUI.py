@@ -23,13 +23,35 @@ def update():
 def quit():
 	global root
 	global timer
-	timer.cancel()
+	if ( stop==0 or stop==1 ):
+		timer.cancel()
+	
 	root.destroy()
+
+
+#Passing time & max EL angle
+'''
+def passing(EL):
+
+	if EL>=5:
+		print "Passing Now ..."*i		+u"正在过境 ..."*(not i)
+		var_pass_time.set("Passing Now ..."*i		+u"正在过境 ..."*(not i))
+
+	if EL<5:
+		pass_time , maxEL = GetLook.GetPassData(tt,eciSat)
+		local_time = time.localtime(pass_time)
+		print "Next Passing Time:"*i	+u"过境时间:"*(not i) + time.asctime(local_time)
+		var_pass_time.set(str(local_time.tm_year)+"/"+str(local_time.tm_mon)+"/"+str(local_time.tm_mday)+" "+str(local_time.tm_hour)+":"+str(local_time.tm_min)+":"+str(local_time.tm_sec))
+		var_maxEL.set(str(maxEL))
+	var_pass_time = StringVar()
+	var_maxEL = StringVar()
+'''
+#
 
 #Start Tracking
 def start():
 
-	i=language.get()
+#	i=language.get()
 
 	global stop
 	stop = 0
@@ -47,10 +69,16 @@ def start():
 		if sys.platform == "linux2":
 			ser=serial.Serial("/dev/ttyUSB"+e5.get(),9600,timeout=0.5)
 
-	print "You are tracking : "*i		+u"正在追踪: "*(not i)+str.upper(Sat)+"."
-	print "You are at Lat : "*i			+u"旋转器纬度: "*(not i)+str(Lat) +\
-					" Lon : "*i			+u" 经度: "*(not i)+str(Lon)+\
-					" Altitude :"*i		+u" 高度: "*(not i)+str(Alt)+"m"
+#	print "You are tracking : "*i		+u"正在追踪: "*(not i)	+str.upper(Sat)+"."
+#	print "You are at Lat : "*i			+u"旋转器纬度: "*(not i)	+str(Lat) +\
+#					" Lon : "*i			+u" 经度: "*(not i)		+str(Lon)+\
+#					" Altitude :"*i		+u" 高度: "*(not i)		+str(Alt)+"m"
+
+	print "You are tracking : "		+str.upper(Sat)+"."
+	print "You are at Lat : "		+str(Lat) +\
+					" Lon : "		+str(Lon)+\
+					" Altitude :"	+str(Alt)+"m"
+
 
 	line1,line2,Lat,Lon,Alt = GetUserData.get_user_data("gui",Sat,Lat,Lon,Alt)
 	GetSat.generate(line1,line2)
@@ -59,16 +87,19 @@ def start():
 	tt = time.time()
 	eciSat = GetSat.get_eciSat(tt)
 	AZ,EL = GetLook.GetLook(tt,eciSat)
-	
+
 	if EL>=5:
-		print "Passing Now ..."*i		+u"正在过境 ..."*(not i)
-		var.set("Passing Now ..."*i		+u"正在过境 ..."*(not i))
+		#pass_time , maxEL = GetLook.GetPassData(tt,eciSat)
+		print "Passing Now ..."
+		var_pass_time.set("Passing Now ...")
+		#var_maxEL.set(str(maxEL))
 
 	if EL<5:
-		pass_time = GetLook.GetPassTime(tt,eciSat)
+		pass_time , maxEL = GetLook.GetPassData(tt,eciSat)
 		local_time = time.localtime(pass_time)
-		print "Next Passing Time:"*i	+u"过境时间:"*(not i) + time.asctime(local_time)
-		var.set(str(local_time.tm_year)+"/"+str(local_time.tm_mon)+"/"+str(local_time.tm_mday)+" "+str(local_time.tm_hour)+":"+str(local_time.tm_min)+":"+str(local_time.tm_sec))
+		print "Next Passing Time:" + time.asctime(local_time)
+		var_pass_time.set(str(local_time.tm_year)+"/"+str(local_time.tm_mon)+"/"+str(local_time.tm_mday)+" "+str(local_time.tm_hour)+":"+str(local_time.tm_min)+":"+str(local_time.tm_sec))
+		var_maxEL.set(str(maxEL))
 
 
 	#global timer
@@ -97,10 +128,10 @@ def fun_timer():
 		ser.write(serial_str)
 
 	if stop == 1:
-		t
 		if mode.get() == 2 or mode.get() == 3 :
 			ser.close()
 
+	#Stop fun_timer(y)
 	if stop == 0:
 		timer = threading.Timer(0.1, fun_timer)
 		timer.start()
@@ -159,11 +190,14 @@ def root_gui():
 
 	#Passing Situation
 
-	Label(root, text="Passing Time :"*i+"过境时间 :"*(not i)).grid(row=8, column=0,columnspan=2)
-	global var
-	var = StringVar()
-	Label(root, textvariable=var).grid(row=9, column=0,columnspan=2)
-
+	Label(root, text="Passing Time :"*i+u"过境时间 :"*(not i)).grid(row=8, column=0,columnspan=2)
+	Label(root, text="Max EL :"*i+u"最大仰角 :"*(not i)).grid(row=10, column=0,columnspan=2)
+	global var_pass_time
+	global var_maxEL
+	var_pass_time = StringVar()
+	var_maxEL = StringVar()
+	Label(root, textvariable=var_pass_time).grid(row=9, column=0,columnspan=2)
+	Label(root, textvariable=var_maxEL).grid(row=11, column=0,columnspan=2)
 
 
 	#Joke
