@@ -1,6 +1,6 @@
 # SGP4_SAT_TRACKER
 
-## USAGE
+## Usage
 ```
 $ pip install sgp4 jdcal pyserial requests
 (use "sudo pip" on Linux)
