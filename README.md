@@ -1,14 +1,10 @@
 # SGP4_SAT_TRACKER
-Author: BG6WRI  
-Email: <bg6wri@gmail.com>  
 
-
-Whatever version you need,you should run this at first:
+##USAGE
 ```
 $ pip install sgp4 jdcal pyserial requests
 (use "sudo pip" on Linux)
 ```
-
 
 
 ## wri_sattrack
@@ -36,3 +32,8 @@ Use SGP4 model,HMC5883L and MMA8452Q on Raspberry Pi
 ```
 $ python track.py
 ```
+
+##Author
+Author: BG6WRI  
+Email: <bg6wri@gmail.com>  
+
