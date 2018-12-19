@@ -1,6 +1,7 @@
 # SGP4_SAT_TRACKER
 
 ## Usage
+For ```Python 2```
 ```
 $ pip install sgp4 jdcal pyserial requests
 (use "sudo pip" on Linux)
@@ -17,7 +18,7 @@ Follow the guide to enter the name of the Sat you want to track and enter your C
 
 ## GUI Version
 Run successfully on both Linux & Windows.   
-But on Windows,Just ```Python 2.7``` can run it well because of the ‘Tkinter’ package.  
+But just on ```Python 2``` because of the ‘Tkinter’ package.  
 ```
 $ sudo apt-get install python-tk
 (only for Linux ↑）
