@@ -34,7 +34,7 @@ Use SGP4 model,HMC5883L and MMA8452Q on Raspberry Pi
 $ python track.py
 ```
 
-##Author
-Author: BG6WRI  
-Email: <bg6wri@gmail.com>  
+## Author
+BG6WRI  
+ <bg6wri@gmail.com>  
 
