@@ -8,7 +8,7 @@ $ pip install sgp4 jdcal pyserial requests
 ```
 
 
-## wri_sattrack
+## CLI Version
 Run successfully on both Linux & Windows.  
 ```
 $ python wri_sattrack.py
