@@ -4,7 +4,6 @@
 For ```Python 2```
 ```
 $ pip install sgp4 jdcal pyserial requests
-(use "sudo pip" on Linux)
 ```
 
 
