@@ -9,6 +9,7 @@ import GetLook
 
 
 '''
+#Serial Output Mode
 #if you want to use serial.
 
 	#Linux
@@ -45,7 +46,7 @@ def _init_():
 		raw_input("Passing Now,Press ENTER to continue tracking ...")
 
 	if EL<5 :
-		pass_time = GetLook.GetPassTime(tt,eciSat)
+		pass_time , maxEL  = GetLook.GetPassData(tt,eciSat)
 		local_time = time.localtime(pass_time)
 		print "Next Pass Time:     " + time.asctime(local_time)+"\n"
 		raw_input("Press ENTER to continue tracking ...\n\n")
