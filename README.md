@@ -28,6 +28,7 @@ Output Mode include Screen,Serial,or both of them.
 
 ## sat_tracker(not complete)
 Use SGP4 model,HMC5883L and MMA8452Q on Raspberry Pi  
+And YD-3040 PTZ  
 ```
 $ python track.py
 ```
