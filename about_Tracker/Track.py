@@ -33,7 +33,7 @@ ser=serial.Serial("/dev/ttyUSB0",2400,timeout=0.5)
 azimuth		= HMC5883L()
 elevation	= MMA8452Q()
 Tracker		= Tracker("/dev/ttyUSB0")
-#Tracker		= Tracker("COM1")
+#Tracker	= Tracker("COM1")
 
 #----------------Big Loop----------------
 while True:
