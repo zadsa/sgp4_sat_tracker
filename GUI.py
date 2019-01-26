@@ -21,7 +21,7 @@ def update():
 
 #Quit GUI & Shell
 def quit():
-	global root
+	
 	global timer
 	if ( stop==0 or stop==1 ):
 		timer.cancel()
@@ -137,140 +137,101 @@ def fun_timer():
 		timer.start()
 
 #Main GUI
-def root_gui():
 
-	i=language.get()
-	lang_choose.destroy()
-
-	global root
-
-	root = Tk()
-	root.title("WRI_Sat_Tracker")
-	root.wm_minsize(400, 360) 
+root = Tk()
+root.title("WRI_Sat_Tracker")
+root.wm_minsize(400, 360) 
 #	if sys.platform == "win32":
 #		root.iconbitmap(sys.path[0]+"/radio.ico")
 
 
-	#Button
-	ButtonStart = Button(	root, text="Start"*i		+u"启动"*(not i),		command=start)
-	ButtonStop = Button(	root, text="Stop"*i			+u"停止"*(not i),		command=stop)
-	ButtonUpdate = Button(	root, text="Update Data"*i	+u"更新星历"*(not i),	command=update)
-	#ButtonUpdate = Button(	root, text="Update Data",	command=lambda:update)
+#Button
+ButtonStart = Button(	root, text="Start",			command=start)
+ButtonStop = Button(	root, text="Stop",			command=stop)
+ButtonUpdate = Button(	root, text="Update Data",	command=update)
+#ButtonUpdate = Button(	root, text="Update Data",	command=lambda:update)
 
 
-	ButtonStart.grid(   row=0, column=0, padx=30, pady=5)
-	ButtonStop.grid(    row=0, column=1, padx=20, pady=5)
-	ButtonUpdate.grid(  row=0, column=2, padx=20, pady=5)
+ButtonStart.grid(   row=0, column=0, padx=30, pady=5)
+ButtonStop.grid(    row=0, column=1, padx=20, pady=5)
+ButtonUpdate.grid(  row=0, column=2, padx=20, pady=5)
 
-	#UserData
-	Label(root, text="Sat Name:"*i		+u"目标卫星"*(not i)).	grid(row=1)
-	Label(root, text="Lat:"*i			+u"纬度"*(not i)).		grid(row=2)
-	Label(root, text="Lon:"*i			+u"经度"*(not i)).		grid(row=3)
-	Label(root, text="Alt:"*i			+u"高度"*(not i)).		grid(row=4)
-	Label(root, text="Serial COM"*i		+u"串口号"*(not i)).		grid(row=4, column=2)
+#UserData
+Label(root, text="Sat Name:").	grid(row=1)
+Label(root, text="Lat:").		grid(row=2)
+Label(root, text="Lon:").		grid(row=3)
+Label(root, text="Alt:").		grid(row=4)
+Label(root, text="Serial COM").	grid(row=4, column=2)
 
-	global e1,e2,e3,e4,e5
+global e1,e2,e3,e4,e5
 
-	e1 = Entry(root, width=10)
-	e2 = Entry(root, width=10)
-	e3 = Entry(root, width=10)
-	e4 = Entry(root, width=10)
-	e5 = Entry(root, width=10)
+e1 = Entry(root, width=10)
+e2 = Entry(root, width=10)
+e3 = Entry(root, width=10)
+e4 = Entry(root, width=10)
+e5 = Entry(root, width=10)
 
-	e1.grid(row=1, column=1, padx=20, pady=5)
-	e2.grid(row=2, column=1, padx=20, pady=5)
-	e3.grid(row=3, column=1, padx=20, pady=5)
-	e4.grid(row=4, column=1, padx=20, pady=5)
-	e5.grid(row=5, column=2, padx=20, pady=5)
+e1.grid(row=1, column=1, padx=20, pady=5)
+e2.grid(row=2, column=1, padx=20, pady=5)
+e3.grid(row=3, column=1, padx=20, pady=5)
+e4.grid(row=4, column=1, padx=20, pady=5)
+e5.grid(row=5, column=2, padx=20, pady=5)
 
-	e1.insert(0,"SO-50")
-	e2.insert(0,"30")
-	e3.insert(0,"30")
-	e4.insert(0,"0")
+e1.insert(0,"SO-50")
+e2.insert(0,"30")
+e3.insert(0,"30")
+e4.insert(0,"0")
 
-	#Passing Situation
+#Passing Situation
 
-	Label(root, text="Passing Time :"*i+u"过境时间 :"*(not i)).grid(row=8, column=0,columnspan=2)
-	Label(root, text="Max EL :"*i+u"最大仰角 :"*(not i)).grid(row=10, column=0,columnspan=2)
-	global var_pass_time
-	global var_maxEL
-	var_pass_time = StringVar()
-	var_maxEL = StringVar()
-	Label(root, textvariable=var_pass_time).grid(row=9, column=0,columnspan=2)
-	Label(root, textvariable=var_maxEL).grid(row=11, column=0,columnspan=2)
-
-
-	#Joke
-	Label(root, text="Author : BG6WRI").	grid(row=7, column=2)
-	Label(root, text="From WITARC").		grid(row=8, column=2)
-	#ButtonJoke = Button(root, text="一键日卫星", command=lambda:var.set("和我没关系啊，你找OpenATS去"))
-	#ButtonJoke.grid(row=8, column=2)
-	#var = StringVar()
-	#Label(root, textvariable=var).grid(	row=9, column=2)
-	
-
-	#Output
-
-	#Scereen Ready
-	Label(root,text="AZ"*i		+"方位角"*(not i)).	grid(row=5,column=0)
-	Label(root,text="EL"*i		+"仰角"*(not i)).	grid(row=5,column=1)
-
-	global AZ_flash
-	global EL_flash
-	
-	AZ_flash=IntVar()
-	AZ_flash.set("")
-	EL_flash=IntVar()
-	EL_flash.set("")
-	Entry(root, textvariable=AZ_flash, width=10).grid(row=6, column=0)
-	Entry(root, textvariable=EL_flash, width=10).grid(row=6, column=1)
-
-	#Mode Choose
-	group = LabelFrame(root, text="Output Mode"*i +u"输出模式"*(not i), padx=5, pady=5)
-	group.grid(row=1, column=2, padx=10, pady=10, rowspan=3)
-	LANGS = [("Screen"*i+u"屏幕"*(not i), 1), ("Serial"*i+u"串口"*(not i), 2),("Both"*i+u"俩都"*(not i), 3)]
-	global mode
-	mode = IntVar()
-	mode.set(1)
-
-	for lang, num in LANGS:
-		b = Radiobutton(group, text=lang, variable=mode, value=num)
-		b.pack(anchor=W)
+Label(root, text="Passing Time :").grid(row=8, column=0,columnspan=2)
+Label(root, text="Max EL :").grid(row=10, column=0,columnspan=2)
+global var_pass_time
+global var_maxEL
+var_pass_time = StringVar()
+var_maxEL = StringVar()
+Label(root, textvariable=var_pass_time).grid(row=9, column=0,columnspan=2)
+Label(root, textvariable=var_maxEL).grid(row=11, column=0,columnspan=2)
 
 
-	root.bind('<Escape>', lambda e: root.destroy())
-	root.protocol("WM_DELETE_WINDOW", quit)
-	root.mainloop()
+#Joke
+Label(root, text="Author : BG6WRI").	grid(row=7, column=2)
+Label(root, text="From WITARC").		grid(row=8, column=2)
+#ButtonJoke = Button(root, text="一键日卫星", command=lambda:var.set("和我没关系啊，你找OpenATS去"))
+#ButtonJoke.grid(row=8, column=2)
+#var = StringVar()
+#Label(root, textvariable=var).grid(	row=9, column=2)
 
 
+#Output
 
-#----lang_choose_gui----
-lang_choose = Tk()
-lang_choose.title("language_choose")
-#lang_choose.wm_minsize(400, 360)
+#Scereen Ready
+Label(root,text="AZ").	grid(row=5,column=0)
+Label(root,text="EL").	grid(row=5,column=1)
 
-#Readme
-#readme="Thanks to : \n\nOpenATS\nTurbo\nBG0AUB"
-#Label(lang_choose, text=readme).grid(row=2, column=1)
+global AZ_flash
+global EL_flash
+
+AZ_flash=IntVar()
+AZ_flash.set("")
+EL_flash=IntVar()
+EL_flash.set("")
+Entry(root, textvariable=AZ_flash, width=10).grid(row=6, column=0)
+Entry(root, textvariable=EL_flash, width=10).grid(row=6, column=1)
+
+#Mode Choose
+group = LabelFrame(root, text="Output Mode", padx=5, pady=5)
+group.grid(row=1, column=2, padx=10, pady=10, rowspan=3)
+LANGS = [("Screen", 1), ("Serial", 2),("Both", 3)]
+global mode
+mode = IntVar()
+mode.set(1)
+
+for lang, num in LANGS:
+	b = Radiobutton(group, text=lang, variable=mode, value=num)
+	b.pack(anchor=W)
 
 
-#Language Choose
-
-lang_group = LabelFrame(lang_choose, text="Language/语言", padx=5, pady=5)
-lang_group.grid(row=0, column=0, padx=10, pady=10, rowspan=3)
-LANGUAGES = [(u"English/英文", 1), (u"Chinese/中文", 0),]
-
-language = IntVar()
-language.set(1)
-
-for lang, lang_num in LANGUAGES:
-	c = Radiobutton(lang_group, text=lang, variable=language, value=lang_num)
-	c.pack(anchor=W)
-
-#global i
-#i=language.get()
-
-ButtonLangChoose = Button(lang_choose, text="Start/启动",command=lambda:root_gui())
-ButtonLangChoose.grid(row=3, column=0, padx=30, pady=5)
-
-lang_choose.mainloop()
+root.bind('<Escape>', lambda e: root.destroy())
+root.protocol("WM_DELETE_WINDOW", quit)
+root.mainloop()
