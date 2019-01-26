@@ -6,7 +6,7 @@ import math
 import time
 
 class HMC5883L:
-    def init(self):
+    def __init__(self):
 
         global a
 
