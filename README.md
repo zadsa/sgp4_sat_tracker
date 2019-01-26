@@ -1,7 +1,7 @@
 # SGP4_SAT_TRACKER
 
 ## Installation
-For ```Python 2```
+For ```Python 2.7```
 ```
 $ pip install sgp4 jdcal pyserial requests
 ```
