@@ -32,6 +32,7 @@ And YD-3040 PTZ
 ```
 $ python track.py
 ```
+![avatar](/image/RPi.jpg)
 ![avatar](/image/YD-3040.jpg)
 ## Author
 BG6WRI  
