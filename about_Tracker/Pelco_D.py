@@ -35,5 +35,5 @@ class Tracker:
 	def stop(self):
 		self.ser.write(stop)
 
-	def stop(self, data):
+	def write(self, data):
 		self.ser.write(data)
