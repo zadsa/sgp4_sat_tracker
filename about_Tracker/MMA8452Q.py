@@ -54,7 +54,7 @@ MMA8452Q_MODE_STANDBY				= 0x00 # Standby Mode
 class MMA8452Q():
 
 
-	def init(self):
+	def __init__(self):
 
 		global b
 		b=wpi.wiringPiI2CSetup(0x1c)
