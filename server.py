@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 from flask import Flask
 from flask import render_template, redirect,url_for
 from flask import request
@@ -36,13 +39,23 @@ def track():
 			print AZ,EL
 
 		context={
+			'lat':Lat,
+			'lon':Lon,
+			'alt':Alt,
 			'az':AZ,
 			'el':EL
 		}
-		return render_template('track.html',**context)
+		return render_template('track.html', **context)
 
-
-
+	if request.method == 'GET':
+		context={
+			'lat':"Lat",
+			'lon':"Lon",
+			'alt':"Alt",
+			'az':"AZ",
+			'el':"EL"
+		}
+		return render_template('track.html', **context)
 
 	return render_template('track.html', error=error)
 
