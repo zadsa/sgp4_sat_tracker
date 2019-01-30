@@ -20,40 +20,51 @@ def track():
 	error = None
 	if request.method == 'POST':
 
-		Sat=str(request.form['satname'])
-		Lat=float(request.form['lat'])
-		Lon=float(request.form['lon'])
-		Alt=float(request.form['alt'])
+		if request.form['lat']=="NowUpdate" :
+			GetUserData.update("gui")
+			context={
+				'lat':"UpdateDone",
+				'lon':"UpdateDone",
+				'alt':"UpdateDone",
+				'az':"UpdateDone",
+				'el':"UpdateDone",
+			}
+			return render_template('track.html', **context)
 
-		line1,line2,Lat,Lon,Alt = GetUserData.get_user_data("gui",Sat,Lat,Lon,Alt)
-		GetSat.generate(line1,line2)
-		GetLook.generate(Lat,Lon,Alt)
+		else:
+			Sat=str(request.form['satname'])
+			Lat=float(request.form['lat'])
+			Lon=float(request.form['lon'])
+			Alt=float(request.form['alt'])
 
-		tt = time.time()
-		eciSat = GetSat.get_eciSat(tt)
-		AZ,EL = GetLook.GetLook(tt,eciSat)
+			line1,line2,Lat,Lon,Alt = GetUserData.get_user_data("gui",Sat,Lat,Lon,Alt)
+			GetSat.generate(line1,line2)
+			GetLook.generate(Lat,Lon,Alt)
+
+			tt = time.time()
+			eciSat = GetSat.get_eciSat(tt)
+			AZ,EL = GetLook.GetLook(tt,eciSat)
 
 
-
-		if request.form['satname']=='SO-50':
-			print AZ,EL
-
-		context={
-			'lat':Lat,
-			'lon':Lon,
-			'alt':Alt,
-			'az':AZ,
-			'el':EL
-		}
-		return render_template('track.html', **context)
+			context={
+				'sat':Sat,
+				'lat':Lat,
+				'lon':Lon,
+				'alt':Alt,
+				'az':AZ,
+				'el':EL,
+	#			'cmd':"Roger"
+			}
+			return render_template('track.html', **context)
 
 	if request.method == 'GET':
 		context={
-			'lat':"W",
-			'lon':"R",
-			'alt':"I",
-			'az':u"牛",
-			'el':u"匹"
+			'lat':0,
+			'lon':0,
+			'alt':0,
+			'az':0,
+			'el':0,
+#			'cmd':"Command"			
 		}
 		return render_template('track.html', **context)
 
