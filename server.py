@@ -49,11 +49,11 @@ def track():
 
 	if request.method == 'GET':
 		context={
-			'lat':"Lat",
-			'lon':"Lon",
-			'alt':"Alt",
-			'az':"AZ",
-			'el':"EL"
+			'lat':"W",
+			'lon':"R",
+			'alt':"I",
+			'az':u"牛",
+			'el':u"匹"
 		}
 		return render_template('track.html', **context)
 
