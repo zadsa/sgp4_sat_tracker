@@ -1,113 +1,119 @@
+<html>
 <head>
-<meta charset="UTF-8">
-<title>wri_sattrack</title> 
+	<meta charset="UTF-8">
+	<title>wri_sattrack</title>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 
 <script>
+	
+	function myFunction(form) {
 
-var myVar;
-
-function myFunction(form)
-{
-	myVar = setInterval(formSubmit(form), 1000);
-}
-
-
-function formSubmit(form)
-{
-
-	if(form.lat.value=='')
-	{
-		alert("Please Enter Your Latitude !");
-		form.lat.focus();
-		return false;
+	var myVar =	setInterval(
+				function () {
+					if (form.lat.value === '') {
+						alert("Please Enter Your Latitude !");
+						form.lat.focus();
+						return false;
+					}
+					if (form.lon.value === '') {
+						alert("Please Enter Your Longitude !");
+						form.lon.focus();
+						return false;
+					}
+					if (form.alt.value === '') {
+						alert("Please Enter Your Attitude !");
+						form.alt.focus();
+						return false;
+					}
+					axios.post('/track', {
+						satname: form.satname.value,
+						lat: form.lat.value,
+						lon: form.lon.value,
+						alt: form.alt.value
+					})
+						.then(function (response) {
+							console.log(response);
+							document.getElementById("az").innerHTML = response.data.az;
+							document.getElementById("el").innerHTML = response.data.el;
+						})
+						.catch(function (error) {
+							console.log(error);
+						});
+				}, 1000);
 	}
-	if(form.lon.value=='')
-	{
-		alert("Please Enter Your Longitude !");
-		form.lon.focus();
-		return false;
+
+
+	function update(form) {
+				document.getElementById("state").innerHTML = "Now Update";
+				axios.post('/track', {
+					satname: form.satname.value,
+					lat: "update",
+					lon: "update",
+					alt: "update"
+				})
+					.then(function (response) {
+						console.log(response);
+						document.getElementById("state").innerHTML = response.data.az;
+					})
+					.catch(function (error) {
+						console.log(error);
+					});
 	}
-	if(form.alt.value=='')
-	{
-		alert("Please Enter Your Attitude !");
-		form.alt.focus();
-		return false;
+
+	function track() {
+		document.getElementById("output").innerHTML = "别按了，还没写好"
 	}
-	document.getElementById("myform").submit();
-}
 
-
-
-
-function stop()
-{
-
-}
-
-function update()
-{
-	document.getElementById("lat").value="NowUpdate";
-	document.getElementById("lon").value="NowUpdate";
-	document.getElementById("alt").value="NowUpdate";
-	document.getElementById("myform").submit();
-}
-
-function track()
-{
-	document.getElementById("output").innerHTML="别按了，还没写好"
-}
+	function stop() {
+		clearInterval(myVar)
+	}
 
 
 </script>
 
-
+<body>
 
 <form action="" id="myform" method="post">
 
-<input type="button" value="Update Data" onclick="update(this.form)">
-<p></p>
+	<input type="button" value="Update Data" onclick="update(this.form)">
+	<p></p>
 
-Sat Name:
-<select id="satname" name="satname">
-<option value=SO-50></option>
-<option value=SO-50>SAUDISAT 1C (SO-50)</option>
-<option value=AO-7>OSCAR 7 (AO-7)</option>
-<option value=UO-11>UOSAT 2 (UO-11)</option>
-<option value=LO-19>LUSAT (LO-19)</option>
-<option value=ITAMSAT>ITAMSAT</option>
-<option value=RS-15>RADIO ROSTO (RS-15)</option>
-<option value=FO-29>JAS-2 (FO-29)</option>
-<option value=GO-32>TECHSAT 1B (GO-32)</option>
-<option value=ISS>ISS (ZARYA)</option>
-<option value=NO-44>PCSAT (NO-44)</option>
-</select>
-
-
-<p></p>
-
-Tracking:     <br>       {{sat}}
-
-<p></p>
-Tracker Coordinates:<br>
-Lat:<input type="text" id="lat" name="lat" value={{lat}} size="10"><br>
-Lon:<input type="text" id="lon" name="lon" value={{lon}} size="10"><br>
-Alt:<input type="text" id="alt" name="alt" value={{alt}} size="10"><br>
+	Sat Name:
+	<select id="satname" name="satname">
+		<option value=SO-50>SAUDISAT 1C (SO-50)</option>
+		<option value=AO-7>OSCAR 7 (AO-7)</option>
+		<option value=UO-11>UOSAT 2 (UO-11)</option>
+		<option value=LO-19>LUSAT (LO-19)</option>
+		<option value=ITAMSAT>ITAMSAT</option>
+		<option value=RS-15>RADIO ROSTO (RS-15)</option>
+		<option value=FO-29>JAS-2 (FO-29)</option>
+		<option value=GO-32>TECHSAT 1B (GO-32)</option>
+		<option value=ISS>ISS (ZARYA)</option>
+		<option value=NO-44>PCSAT (NO-44)</option>
+	</select>
 
 
+	<p></p>
+	Tracker Coordinates:<br>
+	Lat:<input type="text" id="lat" name="lat" value={{ lat }} size="10"><br>
+	Lon:<input type="text" id="lon" name="lon" value={{ lon }} size="10"><br>
+	Alt:<input type="text" id="alt" name="alt" value={{ alt }} size="10"><br>
 
 
-<input type=button value="Predict" onclick="myFunction(this.form)">
-<input type="button" value="Track" onclick="track()">
-<input type=button value="Stop" onclick="stop()">
-<!-- <input type="button" value="Predict" onclick="predict()"> -->
+	<input type=button value="Predict" onclick="myFunction(this.form)">
+	<input type="button" value="Track" onclick="track()">
+	<input type=button value="Stop" onclick="stop()">
+	<!-- <input type="button" value="Predict" onclick="predict()"> -->
 
-<p id="output"></p>
+	<p id="output"></p>
 
-
-AZ:{{az}}
-<p></p>
-EL:{{el}}
+	AZ:<p id="az"></p>
+	<p></p>
+	EL:<p id="el"></p>
+	<p></p>
+	State:<p id="state"></p>
 
 </form>
-
+</body>
+</html>
