@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from flask import Flask
-from flask import render_template, redirect,url_for
 from flask import request
+from flask import jsonify
+from flask import render_template
 
 import time
 import serial
@@ -14,65 +15,49 @@ import GetLook
 app = Flask(__name__)
 
 
+@app.route('/', methods=['GET'])
+def index():
+    context = {
+        'lat': 0,
+        'lon': 0,
+        'alt': 0,
+        'az': 0,
+        'el': 0
+    }
+    return render_template('track.html', **context)
 
-@app.route('/track', methods=['POST','GET'])
+
+@app.route('/track', methods=['POST', "GET"])
 def track():
-	error = None
-	if request.method == 'POST':
+    receive = request.json
+    if receive['lat'] == "update":
+        GetUserData.update("gui")
+        res = {
+            'az': "UpdateDone",
+            'el': "	",
+        }
+    else:
+        receive = request.json
+        Sat = str(receive['satname'])
+        Lat = float(receive['lat'])
+        Lon = float(receive['lon'])
+        Alt = float(receive['alt'])
 
-		if request.form['lat']=="NowUpdate" :
-			GetUserData.update("gui")
-			context={
-				'lat':"UpdateDone",
-				'lon':"UpdateDone",
-				'alt':"UpdateDone",
-				'az':"UpdateDone",
-				'el':"UpdateDone",
-			}
-			return render_template('track.html', **context)
+        line1, line2, Lat, Lon, Alt = GetUserData.get_user_data("gui", Sat, Lat, Lon, Alt)
+        GetSat.generate(line1, line2)
+        GetLook.generate(Lat, Lon, Alt)
 
-		else:
-			Sat=str(request.form['satname'])
-			Lat=float(request.form['lat'])
-			Lon=float(request.form['lon'])
-			Alt=float(request.form['alt'])
+        tt = time.time()
+        eciSat = GetSat.get_eciSat(tt)
+        AZ, EL = GetLook.GetLook(tt, eciSat)
 
-			line1,line2,Lat,Lon,Alt = GetUserData.get_user_data("gui",Sat,Lat,Lon,Alt)
-			GetSat.generate(line1,line2)
-			GetLook.generate(Lat,Lon,Alt)
-
-			tt = time.time()
-			eciSat = GetSat.get_eciSat(tt)
-			AZ,EL = GetLook.GetLook(tt,eciSat)
-
-
-			context={
-				'sat':Sat,
-				'lat':Lat,
-				'lon':Lon,
-				'alt':Alt,
-				'az':AZ,
-				'el':EL,
-	#			'cmd':"Roger"
-			}
-			return render_template('track.html', **context)
-
-	if request.method == 'GET':
-		context={
-			'lat':0,
-			'lon':0,
-			'alt':0,
-			'az':0,
-			'el':0,
-#			'cmd':"Command"			
-		}
-		return render_template('track.html', **context)
-
-	return render_template('track.html', error=error)
-
-
+        res = {
+            'az': AZ,
+            'el': EL
+        }
+    return jsonify(res)
 
 
 if __name__ == '__main__':
-	app.debug = True
-	app.run('0.0.0.0',80)
+    app.debug = True
+    app.run('0.0.0.0', 80)
