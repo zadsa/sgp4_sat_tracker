@@ -36,8 +36,8 @@ $ python track.py
 ![avatar](/image/YD-3040.jpg)
 ## Acknowledgements
 
-- All credit goes to [OpenATS][https://github.com/OpenATS], Thanks for his work.
-- Thanks to [HaveTwoBrush][https://github.com/HaveTwoBrush].
+- All credit goes to [OpenATS][https://github.com/OpenATS] , Thanks for his work.
+- Thanks to [HaveTwoBrush][https://github.com/HaveTwoBrush] .
 
 
 ## Author
