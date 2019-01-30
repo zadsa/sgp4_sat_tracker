@@ -15,7 +15,7 @@ import GetLook
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET'])
+@app.route('/track', methods=['GET'])
 def index():
     context = {
         'lat': 0,
@@ -27,7 +27,7 @@ def index():
     return render_template('track.html', **context)
 
 
-@app.route('/track', methods=['POST', "GET"])
+@app.route('/tracker', methods=['POST', "GET"])
 def track():
     receive = request.json
     if receive['lat'] == "update":
