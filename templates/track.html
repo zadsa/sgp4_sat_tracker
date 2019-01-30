@@ -2,9 +2,36 @@
 <head>
 <meta charset="UTF-8">
 <title>wri_sattrack</title> 
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 
 <script>
+
+function formSubmit(form)
+{
+
+	if(form.lat.value=='')
+	{
+		alert("Please Enter Your Latitude !");
+		form.lat.focus();
+		return false;
+	}
+	if(form.lon.value=='')
+	{
+		alert("Please Enter Your Longitude !");
+		form.lon.focus();
+		return false;
+	}
+	if(form.alt.value=='')
+	{
+		alert("Please Enter Your Attitude !");
+		form.alt.focus();
+		return false;
+	}
+
+	document.getElementById("myform").submit();
+}
+
 function update()
 {
     document.getElementById("azel").innerHTML="Update个屁";
@@ -15,20 +42,12 @@ function track()
     document.getElementById("azel").innerHTML="Track个屁"
 }
 
-function predict()
-{
-    var satname=document.getElementById('satname').value;
-    var lat=document.getElementById('lat').value;
-    var lon=document.getElementById('lon').value;
-    var alt=document.getElementById('alt').value;
-    document.getElementById("azel").innerHTML=satname;
-}
 
 </script>
 
 
 
-<form action="" method="post">
+<form action="" id="myform" method="post">
 
 <input type="button" value="Update Data" onclick="update()">
 <p></p>
@@ -59,12 +78,15 @@ Alt:<input type="text" id="alt" name="alt" size="10"><br>
 
 
 <input type="button" value="Track" onclick="track()">
+<input type=button value="Predict" onclick="formSubmit(this.form)">
 <!-- <input type="button" value="Predict" onclick="predict()"> -->
 
 <p id="azel"></p>
 
-<input type="submit" value="Predict" />
 
+AZ:{{az}}
+<p></p>
+EL:{{el}}
 
 </form>
 
