@@ -34,9 +34,19 @@ def track():
 
 		if request.form['satname']=='SO-50':
 			print AZ,EL
-		else:
-			error = 'Invalid username/password'
+
+		context={
+			'az':AZ,
+			'el':EL
+		}
+		return render_template('track.html',**context)
+
+
+
+
 	return render_template('track.html', error=error)
+
+
 
 
 if __name__ == '__main__':
