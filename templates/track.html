@@ -1,10 +1,17 @@
 <head>
 <meta charset="UTF-8">
 <title>wri_sattrack</title> 
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 
 <script>
+
+var myVar;
+
+function myFunction(form)
+{
+	myVar = setInterval(formSubmit(form), 1000);
+}
+
 
 function formSubmit(form)
 {
@@ -27,18 +34,28 @@ function formSubmit(form)
 		form.alt.focus();
 		return false;
 	}
-
 	document.getElementById("myform").submit();
+}
+
+
+
+
+function stop()
+{
+
 }
 
 function update()
 {
-    document.getElementById("azel").innerHTML="Update个屁";
+	document.getElementById("lat").value="NowUpdate";
+	document.getElementById("lon").value="NowUpdate";
+	document.getElementById("alt").value="NowUpdate";
+	document.getElementById("myform").submit();
 }
 
 function track()
 {
-    document.getElementById("azel").innerHTML="Track个屁"
+	document.getElementById("output").innerHTML="别按了，还没写好"
 }
 
 
@@ -48,11 +65,12 @@ function track()
 
 <form action="" id="myform" method="post">
 
-<input type="button" value="Update Data" onclick="update()">
+<input type="button" value="Update Data" onclick="update(this.form)">
 <p></p>
 
 Sat Name:
 <select id="satname" name="satname">
+<option value=SO-50></option>
 <option value=SO-50>SAUDISAT 1C (SO-50)</option>
 <option value=AO-7>OSCAR 7 (AO-7)</option>
 <option value=UO-11>UOSAT 2 (UO-11)</option>
@@ -65,6 +83,11 @@ Sat Name:
 <option value=NO-44>PCSAT (NO-44)</option>
 </select>
 
+
+<p></p>
+
+Tracking:     <br>       {{sat}}
+
 <p></p>
 Tracker Coordinates:<br>
 Lat:<input type="text" id="lat" name="lat" value={{lat}} size="10"><br>
@@ -72,15 +95,14 @@ Lon:<input type="text" id="lon" name="lon" value={{lon}} size="10"><br>
 Alt:<input type="text" id="alt" name="alt" value={{alt}} size="10"><br>
 
 
-<!-- var lat=document.getElementById('lat').value; -->
-<!-- document.getElementById("azel").innerHTML=lat; -->
 
 
+<input type=button value="Predict" onclick="myFunction(this.form)">
 <input type="button" value="Track" onclick="track()">
-<input type=button value="Predict" onclick="formSubmit(this.form)">
+<input type=button value="Stop" onclick="stop()">
 <!-- <input type="button" value="Predict" onclick="predict()"> -->
 
-<p id="azel"></p>
+<p id="output"></p>
 
 
 AZ:{{az}}
