@@ -17,8 +17,8 @@ Tracker = Tracker("/dev/ttyUSB0")
 
 class Tracker:
 
-	def __init__(self, add):
-		self.ser=serial.Serial("/dev/ttyUSB0",2400,timeout=0.5)
+	def __init__(self, add, baud_rate):
+		self.ser=serial.Serial("/dev/ttyUSB0",baud_rate,timeout=0.5)
 
 	def up(self):
 		self.ser.write(up)
