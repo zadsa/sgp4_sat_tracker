@@ -6,10 +6,11 @@
 </head>
 
 <script>
-	
+var myVar
+
 	function myFunction(form) {
 
-	var myVar =	setInterval(
+	myVar =	setInterval(
 				function () {
 					if (form.lat.value === '') {
 						alert("Please Enter Your Latitude !");
@@ -65,8 +66,10 @@
 		document.getElementById("output").innerHTML = "别按了，还没写好"
 	}
 
-	function stop() {
+	function stop(form) {
 		clearInterval(myVar)
+		document.getElementById("az").innerHTML = "";
+		document.getElementById("el").innerHTML = "";
 	}
 
 
@@ -103,7 +106,7 @@
 
 	<input type=button value="Predict" onclick="myFunction(this.form)">
 	<input type="button" value="Track" onclick="track()">
-	<input type=button value="Stop" onclick="stop()">
+	<input type=button value="Stop" onclick="stop(this.form)">
 	<!-- <input type="button" value="Predict" onclick="predict()"> -->
 
 	<p id="output"></p>
