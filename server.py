@@ -33,7 +33,7 @@ def track():
     if receive['lat'] == "update":
         GetUserData.update("gui")
         res = {
-            'az': "UpdateDone",
+            'az': "Update Done",
             'el': "	",
         }
     else:
