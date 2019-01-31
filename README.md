@@ -27,14 +27,17 @@ $ python GUI.py
 Output Mode include Screen,Serial,or both of them.  
 
 ## WEB Version(not complete)
-
+As a example, Visit http://bg6wri.tk:8080/track  
 ```
+$ sudo pip install Flask
 $ python server.py
 ```
+On PC, Then visit http://127.0.0.1/track to use the web Tracker.  
+On Raspberry Pi, Then visit http://raspberry/track to use the web Tracker.  
 
-##Hardware
-Use SGP4 model,HMC5883L and MMA8452Q on Raspberry Pi
-And YD-3040 PTZ
+## Hardware
+Use SGP4 model,HMC5883L and MMA8452Q on Raspberry Pi  
+And YD-3040 PTZ  
 ![avatar](/image/RPi.jpg)
 ![avatar](/image/YD-3040.jpg)
 
