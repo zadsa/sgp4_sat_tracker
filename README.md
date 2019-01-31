@@ -42,7 +42,7 @@ And YD-3040 PTZ
 ![avatar](/image/YD-3040.jpg)  
 ![avatar](/image/HMC5883L.jpg)
 ![avatar](/image/MMA8452Q.jpg)
-![avatar](/image/LSM303DLH.jpg)
+![avatar](/image/LSM303DLH.jpg)  
 ## Acknowledgements
 
 - All credit goes to [OpenATS](https://github.com/OpenATS) , Thanks for his work.
