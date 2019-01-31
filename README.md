@@ -36,12 +36,13 @@ On PC, Then visit http://127.0.0.1/track to use the web Tracker.
 On Raspberry Pi, Then visit http://raspberry/track to use the web Tracker.  
 
 ## Hardware
-Use SGP4 model,HMC5883L and MMA8452Q on Raspberry Pi  
+Use SGP4 model,HMC5883L MMA8452Q and LSM303DLH on Raspberry Pi  
 And YD-3040 PTZ  
 ![avatar](/image/RPi.jpg)
-![avatar](/image/YD-3040.jpg)
-
-
+![avatar](/image/YD-3040.jpg)  
+![avatar](/image/HMC5883L.jpg)
+![avatar](/image/MMA8452Q.jpg)
+![avatar](/image/LSM303DLH.jpg)
 ## Acknowledgements
 
 - All credit goes to [OpenATS](https://github.com/OpenATS) , Thanks for his work.
