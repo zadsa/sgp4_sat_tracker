@@ -26,14 +26,19 @@ $ python GUI.py
 ```
 Output Mode include Screen,Serial,or both of them.  
 
-## sat_tracker(not complete)
-Use SGP4 model,HMC5883L and MMA8452Q on Raspberry Pi  
-And YD-3040 PTZ  
+## WEB Version(not complete)
+
 ```
-$ python track.py
+$ python server.py
 ```
+
+##Hardware
+Use SGP4 model,HMC5883L and MMA8452Q on Raspberry Pi
+And YD-3040 PTZ
 ![avatar](/image/RPi.jpg)
 ![avatar](/image/YD-3040.jpg)
+
+
 ## Acknowledgements
 
 - All credit goes to [OpenATS](https://github.com/OpenATS) , Thanks for his work.
