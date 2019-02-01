@@ -270,9 +270,9 @@
 
 	}
 
-	function setstep(abc){
+	function setstep(cmd){
 		axios.post('/setstep', {
-			abc: abc,
+			cmd: cmd,
 		})
 			.then(function (response) {
 				console.log(response);
