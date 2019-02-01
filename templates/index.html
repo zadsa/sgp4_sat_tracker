@@ -1,0 +1,428 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>wri_sattrack</title>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style type="text/css" media="screen">
+  * {
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+  }
+
+  body, html {
+    padding: 3px 3px 3px 3px;
+
+    background-color: #D8DBE2;
+
+    font-family: Verdana, sans-serif;
+    font-size: 11pt;
+    text-align: center;
+  }
+
+  div.main_page {
+    position: relative;
+    display: table;
+
+    width: 800px;
+
+    margin-bottom: 3px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px 0px 0px 0px;
+
+    border-width: 2px;
+    border-color: #212738;
+    border-style: solid;
+
+    background-color: #FFFFFF;
+
+    text-align: center;
+  }
+
+  div.page_header {
+    height: 99px;
+    width: 100%;
+
+    background-color: #F5F6F7;
+  }
+
+  div.page_header span {
+    margin: 15px 0px 0px 50px;
+
+    font-size: 180%;
+    font-weight: bold;
+  }
+
+  div.page_header img {
+    margin: 3px 0px 0px 40px;
+
+    border: 0px 0px 0px;
+  }
+
+  div.table_of_contents {
+    clear: left;
+
+    min-width: 200px;
+
+    margin: 3px 3px 3px 3px;
+
+    background-color: #FFFFFF;
+
+    text-align: left;
+  }
+
+  div.table_of_contents_item {
+    clear: left;
+
+    width: 100%;
+
+    margin: 4px 0px 0px 0px;
+
+    background-color: #FFFFFF;
+
+    color: #000000;
+    text-align: left;
+  }
+
+  div.table_of_contents_item a {
+    margin: 6px 0px 0px 6px;
+  }
+
+  div.content_section {
+    margin: 3px 3px 3px 3px;
+
+    background-color: #FFFFFF;
+
+    text-align: left;
+  }
+
+  div.content_section_text {
+    padding: 4px 8px 4px 8px;
+
+    color: #000000;
+    font-size: 100%;
+  }
+
+  div.content_section_text pre {
+    margin: 8px 0px 8px 0px;
+    padding: 8px 8px 8px 8px;
+
+    border-width: 1px;
+    border-style: dotted;
+    border-color: #000000;
+
+    background-color: #F5F6F7;
+
+    font-style: italic;
+  }
+
+  div.content_section_text p {
+    margin-bottom: 6px;
+  }
+
+  div.content_section_text ul, div.content_section_text li {
+    padding: 4px 8px 4px 16px;
+  }
+
+  div.section_header {
+    padding: 3px 6px 3px 6px;
+
+    background-color: #8E9CB2;
+
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 112%;
+    text-align: center;
+  }
+
+  div.section_header_red {
+    background-color: #CD214F;
+  }
+
+  div.section_header_grey {
+    background-color: #9F9386;
+  }
+
+  .floating_element {
+    position: relative;
+    float: left;
+  }
+
+  div.table_of_contents_item a,
+  div.content_section_text a {
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  div.table_of_contents_item a:link,
+  div.table_of_contents_item a:visited,
+  div.table_of_contents_item a:active {
+    color: #000000;
+  }
+
+  div.table_of_contents_item a:hover {
+    background-color: #000000;
+
+    color: #FFFFFF;
+  }
+
+  div.content_section_text a:link,
+  div.content_section_text a:visited,
+   div.content_section_text a:active {
+    background-color: #DCDFE6;
+
+    color: #000000;
+  }
+
+  div.content_section_text a:hover {
+    background-color: #000000;
+
+    color: #DCDFE6;
+  }
+
+  div.validator {
+  }
+    </style>
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+	function update(form) {
+		document.getElementById("state").innerHTML = "Now Update";
+		axios.post('/update', {
+			null: "null",
+		})
+			.then(function (response) {
+				console.log(response);
+				document.getElementById("state").innerHTML = response.data.az;
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+	}
+
+	var myVar
+	
+	function predict(form) {
+
+	myVar =	setInterval(
+		function () {
+			if (form.lat.value === '') {
+				alert("Please Enter Your Latitude !");
+				form.lat.focus();
+				return false;
+			}
+			if (form.lon.value === '') {
+				alert("Please Enter Your Longitude !");
+				form.lon.focus();
+				return false;
+			}
+			if (form.alt.value === '') {
+				alert("Please Enter Your Attitude !");
+				form.alt.focus();
+				return false;
+			}
+			axios.post('/predict', {
+				satname: form.satname.value,
+				lat: form.lat.value,
+				lon: form.lon.value,
+				alt: form.alt.value
+			})
+				.then(function (response) {
+					console.log(response);
+					document.getElementById("az").innerHTML = response.data.az;
+					document.getElementById("el").innerHTML = response.data.el;
+				})
+				.catch(function (error) {
+					console.log(error);
+				});
+		}, 1000);
+	}
+
+	function stop_predict(form) {
+		clearInterval(myVar)
+		document.getElementById("az").innerHTML = "";
+		document.getElementById("el").innerHTML = "";
+	}
+
+	function newTracker(){
+		axios.post('/newTracker', {
+			new: "new",
+		})
+			.then(function (response) {
+				console.log(response);
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+
+	}
+
+	function step(cmd) {
+		axios.post('/step', {
+			cmd: cmd
+		})
+	}
+
+
+	function track() {
+		document.getElementById("state").innerHTML = "Now Update";
+		axios.post('/update', {
+			null: "null",
+		})
+			.then(function (response) {
+				console.log(response);
+				document.getElementById("state").innerHTML = response.data.az;
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+		document.getElementById("output").innerHTML = "别按了，还没写好"
+	}
+
+
+
+
+</script>
+
+
+<body>
+
+
+<form action="" id="myform" method="post">
+
+
+<div class="main_page">
+
+<div class="page_header floating_element">
+<img src="static/image/radio.png" alt="Radio Logo" class="floating_element"/>
+<span class="floating_element">
+WRI Sat_Tracker
+</span>
+</div>
+
+<div class="content_section floating_element">
+
+
+<div class="section_header section_header_red">
+<div id="about"></div>
+It works!
+</div>
+
+
+
+
+<div class="content_section_text">
+<img src="static/image/信了邪.png" alt="Believe the Evil" class="floating_element"/>
+
+<p>
+Dalao Turbo trusted that I build a Apache2 web server on the github,and check the dig many times.
+<br>That made me think I'm good at web development.
+</p>
+
+</div>
+
+
+
+<div class="section_header">
+
+<div id="Predict"></div>
+Predict
+</div>
+
+<input type="button" value="Update Data" onclick="update(this.form)">
+<p></p>
+
+	Sat Name:
+	<select id="satname" name="satname">
+	<option value=AO-7>OSCAR 7 (AO-7)</option>
+	<option value=AO-73>FUNCUBE-1 (AO-73)</option>
+	<option value=AO-92>FOX-1D (AO-92)</option>
+	<option value=EO-88>NAYIF-1 (EO-88)</option>
+	<option value=FO-29>JAS-2 (FO-29)</option>
+	<option value=LILACSAT 1>LILACSAT 1</option>
+	<option value=LILACSAT 2>LILACSAT 2</option>
+	<option value=NOAA 1>NOAA 1 [-]</option>
+	<option value=NOAA 2>NOAA 2 (ITOS-D) [-]</option>
+	<option value=NOAA 3>NOAA 3 [-]</option>
+	<option value=NOAA 4>NOAA 4 [-]</option>
+	<option value=NOAA 5>NOAA 5 [-]</option>
+	<option value=NOAA 6>NOAA 6 [P]</option>
+	<option value=NOAA 7>NOAA 7 [-]</option>
+	<option value=NOAA 8>NOAA 8 [-]</option>
+	<option value=NOAA 9>NOAA 9 [P]</option>
+	<option value=NOAA 10>NOAA 10 [-]</option>
+	<option value=NOAA 11>NOAA 11 [-]</option>
+	<option value=NOAA 12>NOAA 12 [-]</option>
+	<option value=NOAA 13>NOAA 13 [-]</option>
+	<option value=NOAA 14>NOAA 14 [-]</option>
+	<option value=NOAA 15>NOAA 15 [B]</option>
+	<option value=NOAA 16>NOAA 16 [-]</option>
+	<option value=NOAA 17>NOAA 17 [-]</option>
+	<option value=NOAA 18>NOAA 18 [B]</option>
+	<option value=NOAA 19>NOAA 19 [+]</option>
+	<option value=NOAA 20>NOAA 20 [+]</option>
+	<option value=SO-50>SAUDISAT 1C (SO-50)</option>
+	<option value=XW-2A>XW-2A</option>
+	<option value=XW-2B>XW-2B</option>
+	<option value=XW-2C>XW-2C</option>
+	<option value=XW-2D>XW-2D</option>
+	<option value=XW-2F>XW-2F</option>
+	</select>
+
+
+	<p></p>
+	Tracker Coordinates:<br>
+	Lat:<input type="text" id="lat" name="lat" value={{lat}} size="10"><br>
+	Lon:<input type="text" id="lon" name="lon" value={{lon}} size="10"><br>
+	Alt:<input type="text" id="alt" name="alt" value={{alt}} size="10"><br>
+
+
+	<input type=button		value="Predict"		onclick="predict(this.form)">
+	<input type=button		value="Track"		onclick="track()">
+	<input type=button		value="Stop"		onclick="stop_predict(this.form)">
+	<!-- <input type="button" value="Predict" onclick="predict()"> -->
+
+	<p align="center">AZ:<a align="center" id="az"></a></p>
+	<p align="center">EL:<a align="center" id="el"></a></p>
+	<p align="center">State:<a align="center" id="state"></a></p>
+	
+	
+
+	<div class="section_header">
+
+	<div id="Track"></div>
+	Track
+	</div>
+
+	<input type=button value="Link to Tracker" style="height:40px;width:100px;" onclick="newTracker()">
+	<p></p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type=button value="↑" style="height:60px;width:40px;" onclick="step("up")">
+	<p></p>
+	<input type=button value="←" style="height:40px;width:60px;" onclick="step("left")">
+	<input type=button value="Left&Down" style="height:40px;width:80px; onclick="step("LD")">
+	<input type=button value="→" style="height:40px;width:60px;" onclick="step("right")">
+	<p></p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type=button value="↓" style="height:60px;width:40px;" onclick="step("down")">
+
+
+
+</form>
+
+</body>
+</html>
+
