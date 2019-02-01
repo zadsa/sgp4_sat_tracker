@@ -71,10 +71,7 @@ def newTracker():
 def setstep():
 
 	receive = request.json
-	print receive['cmd']
-	if receive['cmd'] == "LD":
-		print "LD"
-	'''
+
 	if receive['cmd'] == "LD":
 		Tracker.down()
 		Tracker.left()
@@ -89,7 +86,7 @@ def setstep():
 			Tracker.right()
 		time.delay(0.5)
 		Tracker.stop()
-	'''
+
 	return "ok"
 
 @app.route('/track', methods=['POST', "GET"])
