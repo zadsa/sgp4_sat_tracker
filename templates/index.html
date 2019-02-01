@@ -257,9 +257,9 @@
 		document.getElementById("el").innerHTML = "";
 	}
 
-	function newTracker(){
+	function newTracker(cmd){
 		axios.post('/newTracker', {
-			new: "new",
+			cmd: cmd,
 		})
 			.then(function (response) {
 				console.log(response);
@@ -414,8 +414,9 @@ Predict
 	Track
 	</div>
 
-	<input type=button value="Link to Tracker" style="height:40px;width:100px;" onclick="newTracker()">
-	<p></p>
+	<input type=button value="Link to Tracker" style="height:40px;width:100px;" onclick="newTracker('y')">
+	<input type=button value="Close Tracker" style="height:40px;width:100px;" onclick="newTracker('n')">
+	<p>---------------------------------------</p>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<input type=button value="↑" style="height:60px;width:40px;" onclick="setstep('up')">
 	<p></p>
