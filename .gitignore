@@ -103,3 +103,4 @@ ENV/
 amateur.txt
 stations.txt
 noaa.txt
+*.bak
