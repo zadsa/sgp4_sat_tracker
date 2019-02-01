@@ -64,15 +64,15 @@ def predict():
 def newTracker():
 	global Tracker
 	Tracker = Tracker("/dev/ttyUSB0",2400)
-
-		
-
-	#return jsonify(res)
+	return "ok"
 
 
-@app.route('/step', methods=['POST', "GET"])
-def step():
-	#global Tracker
+@app.route('/setstep', methods=['POST', "GET"])
+def setstep():
+
+	receive = request.json
+
+	global Tracker
 	receive = request.json
 	if receive['cmd'] == "LD":
 		Tracker.down()
@@ -88,9 +88,8 @@ def step():
 			Tracker.right()
 		time.delay(0.5)
 		Tracker.stop()
-		
 
-	#return jsonify(res)
+	return "ok"
 
 @app.route('/track', methods=['POST', "GET"])
 def track():
