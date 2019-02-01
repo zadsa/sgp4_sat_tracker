@@ -62,6 +62,7 @@ def predict():
 
 @app.route('/newTracker', methods=['POST', "GET"])
 def newTracker():
+	receive = request.json
 	global Tracker
 	if receive['cmd'] == "y":
 		Tracker = Pelco_D.Tracker("/dev/ttyUSB0",2400)
