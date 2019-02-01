@@ -11,7 +11,7 @@ import serial
 import GetUserData
 import GetSat
 import GetLook
-from Pelco_D import Tracker
+import Pelco_D
 
 app = Flask(__name__)
 
@@ -63,7 +63,11 @@ def predict():
 @app.route('/newTracker', methods=['POST', "GET"])
 def newTracker():
 	global Tracker
-	Tracker = Tracker("/dev/ttyUSB0",2400)
+	if receive['cmd'] == "y":
+		Tracker = Pelco_D.Tracker("/dev/ttyUSB0",2400)
+	if receive['cmd'] == "n":
+		Tracker.close()
+		del Tracker
 	return "ok"
 
 
@@ -84,7 +88,7 @@ def setstep():
 			Tracker.left()
 		if receive['cmd'] == "right":
 			Tracker.right()
-		time.delay(0.5)
+		time.sleep(0.5)
 		Tracker.stop()
 
 	return "ok"
