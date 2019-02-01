@@ -32,8 +32,8 @@ As a example, Visit http://bg6wri.tk:8080/track
 $ sudo pip install Flask
 $ sudo python server.py
 ```
-On PC, Then visit http://127.0.0.1/track to use the web Tracker.  
-On Raspberry Pi, Then visit http://raspberrypi/track to use the web Tracker.  
+On PC, Then visit http://127.0.0.1:8080 to use the web Tracker.  
+On Raspberry Pi, Then visit http://raspberrypi:8080 to use the web Tracker.  
 
 ## Hardware
 Use SGP4 model,HMC5883L MMA8452Q and LSM303DLH on Raspberry Pi  
