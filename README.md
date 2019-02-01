@@ -30,7 +30,7 @@ Output Mode include Screen,Serial,or both of them.
 As a example, Visit http://bg6wri.tk:8080/track  
 ```
 $ sudo pip install Flask
-$ python server.py
+$ sudo python server.py
 ```
 On PC, Then visit http://127.0.0.1/track to use the web Tracker.  
 On Raspberry Pi, Then visit http://raspberrypi/track to use the web Tracker.  
