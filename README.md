@@ -3,7 +3,7 @@
 ## Installation
 For ```Python 2.7```
 ```
-$ pip install sgp4 jdcal pyserial requests
+$ sudo pip install sgp4 jdcal pyserial requests
 ```
 
 
@@ -27,10 +27,10 @@ $ python GUI.py
 Output Mode include Screen,Serial,or both of them.  
 
 ## WEB Version(not complete)
-As a example, Visit http://bg6wri.tk:8080/track  
+As a example, Visit http://bg6wri.tk:8080  
 ```
 $ sudo pip install Flask
-$ sudo python server.py
+$ python server.py
 ```
 On PC, Then visit http://127.0.0.1:8080 to use the web Tracker.  
 On Raspberry Pi, Then visit http://raspberrypi:8080 to use the web Tracker.  
