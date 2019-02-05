@@ -3,16 +3,17 @@
 ## Installation
 For ```Python 2.7```
 ```
-$ sudo apt-get install python-pip
+$ sudo apt-get install python-pip git
 $ sudo pip install sgp4 jdcal pyserial requests
 $ git clone https://github.com/BG6WRI/sgp4_sat_tracker
+$ cd sgp4_sat_tracker
 ```
 
 
 ## CLI Version
 Run successfully on both Linux & Windows.  
 ```
-$ python wri_sattrack.py
+$ python CLI.py
 ```
 Follow the guide to enter the name of the Sat you want to track and enter your Coordinates.  
 
