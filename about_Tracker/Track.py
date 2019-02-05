@@ -36,7 +36,14 @@ Tracker		= Tracker("/dev/ttyUSB0", 2400)
 #Tracker	= Tracker("COM1")
 
 #----------------Big Loop----------------
-while True:
+def goto(az,el):
+
+	AZ_now = azimuth.read()     #azimuth
+	EL_now = elevation.read()   #elevation
+
+	time.sleep(0.5)
+
+def track(satname):
 
 	tt = time.time()
 	eciSat = GetSat.get_eciSat(tt)
@@ -45,17 +52,10 @@ while True:
 	AZ_now = azimuth.read()     #azimuth
 	EL_now = elevation.read()   #elevation
 
+	time.sleep(0.5)
 
-#-----------------Move-------------------
-	
-	
-	AZ_old = AZ
-	EL_old = EL
-
-
-	time.sleep(0.1)
-
-
-
-
+def stop():
+	del azimuth
+	del elevation
+	Tracker
 
