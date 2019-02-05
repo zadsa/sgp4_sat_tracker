@@ -3,7 +3,9 @@
 ## Installation
 For ```Python 2.7```
 ```
+$ sudo apt-get install python-pip
 $ sudo pip install sgp4 jdcal pyserial requests
+$ git clone https://github.com/BG6WRI/sgp4_sat_tracker
 ```
 
 
