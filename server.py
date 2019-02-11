@@ -79,6 +79,7 @@ def setstep():
 
 	if receive['cmd'] == "LD":
 		Tracker.down()
+		time.sleep(0.5)
 		Tracker.left()
 	if receive['cmd'] != "LD":
 		if receive['cmd'] == "up":
