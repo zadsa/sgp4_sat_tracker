@@ -4,7 +4,7 @@
 For ```Python 2.7```
 ```
 $ sudo apt-get install python-pip git
-$ sudo pip install sgp4 jdcal pyserial requests
+$ sudo pip install sgp4 jdcal pyserial requests wiringpi
 $ git clone https://github.com/BG6WRI/sgp4_sat_tracker
 $ cd sgp4_sat_tracker
 ```
